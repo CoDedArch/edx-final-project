@@ -1,15 +1,15 @@
 #! /bin/bash
-lookup_log="./look_up.log"
 
-#general idea
-
-# Go to the core_server
+#paths
 hst_c_svr="/c/Users/hp/LIBRARY/09_Shell_scripts/edx_final_project/HST_C_SVR"
-cd $hst_c_svr
-data=$(find *.htpasswd)
+lookup_log="$hst_c_svr/look_up.log"
+
+data=$(find "$hst_c_svr" -name "*.htpasswd")
+
 for file in $data
 do
-date_modified=$(stat -c "%y" $file | cut -d "." -f1)
-echo -e "file:\t $file \t date_modified: $date_modified" >> $lookup_log
+file_name=$(basename "$file")
+date_modified=$(stat -c "%Y" $file)
+echo -e "file:\t $file_name \t date_modified: $date_modified" >> $lookup_log
 done
 echo "done executing"
